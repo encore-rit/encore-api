@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "API for the encore photo experience",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc ./api/**/*.js",
+    "pretest": "npm run lint"
   },
   "repository": {
     "type": "git",
