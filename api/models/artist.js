@@ -1,34 +1,49 @@
-import mongoose from 'mongoose';
+import mongoose from '../helpers/database';
 
 const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
 
-  description: {
+  dob: {
+    type: Number,
+    required: true,
+  },
+
+  dod: {
+    type: Number,
+  },
+
+  bio: {
     type: String,
     required: true,
   },
 
-  genres: [
+  sigUrl: {
+    type: String,
+    required: true,
+  },
+
+  photoUrls: [
     {
       type: String,
-    },
-  ],
-
-  photos: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Photo',
+      required: true,
     },
   ],
 
   artifacts: [
     {
-      name: { type: String },
-      description: { type: String },
-      location: { type: String },
+      name: {
+        type: String,
+      },
+      description: {
+        type: String,
+      },
+      location: {
+        type: String,
+      },
     },
   ],
 });

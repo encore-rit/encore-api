@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from '../helpers/database';
 
 const schema = new mongoose.Schema({
   url: {

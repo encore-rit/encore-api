@@ -1,4 +1,5 @@
 import getArtists from './controllers/artists/index';
+import createArtists from './controllers/artists/create';
 
 import createUser from './controllers/users/create';
 import addPhoto from './controllers/users/addPhoto';
@@ -17,6 +18,11 @@ export default {
       path: '/artists',
       method: 'GET',
       handler: getArtists,
+    },
+    {
+      path: '/artists',
+      method: 'POST',
+      handler: createArtists,
     },
     {
       path: '/users',

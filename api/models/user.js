@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from '../helpers/database';
 
 const schema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
   },
@@ -11,14 +11,14 @@ const schema = new mongoose.Schema({
   },
 
   artist: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.SchemaTypes.ObjectId,
     ref: 'Artist',
     required: true,
   },
 
   photos: [
     {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'Photo',
     },
   ],

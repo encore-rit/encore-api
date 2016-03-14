@@ -48,7 +48,7 @@ Clients:
 A1. Get artists                  GET /artists
 A2. Create user & Select artist  POST /users -> publish nextTaker
 
-B1. Take nextTaker               POST /publish/taker -> consume nextTaker
+B1. Take nextTaker               POST /consume/taker -> consume nextTaker
 B2. Persist photo                POST /users/:id/photos
   * repeat as needed until they get booted (X number of photos? X number of seconds/minutes?)
 B3. Boot current user            POST /publish/editor -> publish nextEditor
