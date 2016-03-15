@@ -5,6 +5,8 @@
 import { Artist } from '../../models/artist';
 
 export default function getArtists(req, res) {
+  console.log('yolo');
+
   return Artist.find({})
   .then((artists) => {
     console.log(artists);

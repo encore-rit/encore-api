@@ -10,7 +10,6 @@ export default function create(req, res) {
   const { username, artist } = req.body;
   const required = { username, artist };
 
-  console.log(required)
   if (any(isNil)(values(required))) {
     return res.status(400).json(required);
   }
@@ -20,6 +19,8 @@ export default function create(req, res) {
   .then((user) => User.populate(user, 'artist'))
   // @TODO hookup event system with dispatcher to fire a publish queue to RabbitMQ
   // .then(publishNextTaker)
+  .tap(console.log)
+  .tap()
   .then((user) => res.status(201).json(user))
   .catch((err) => res.status(500).json(err));
 }
