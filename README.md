@@ -7,6 +7,11 @@ npm install
 npm start
 ```
 
+It also depends on a working MongoDB and (not yet, but soon) Redis install.
+
+To prefill the database run the `seedDB` file in the fixtures directory.
+
+
 ## Technology
 
 ```
