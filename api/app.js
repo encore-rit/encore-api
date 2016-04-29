@@ -8,14 +8,14 @@ import cors from 'cors';
 import { port } from '../config';
 import routes from './routes';
 
-export default express()
+express()
   .use(logger('dev'))
   .use(compression())
   .use(cors())
   .use(bodyParser.json())
   .use(enrouten(routes))
   .disable('x-powered-by')
-  .listen(port, function(err) {
+  .listen(port, (err) => {
     if (err) throw err;
     console.info('Listening on port: ', port);
   });

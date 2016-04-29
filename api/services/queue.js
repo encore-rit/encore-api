@@ -37,3 +37,16 @@ export const consumeTaker = () => {
     setTimeout(done, 30000);
   });
 };
+
+export const getActiveTakers = (jobType) => {
+  return new Promise((resolve, reject) => {
+    kue.Job.rangeByType(jobType, 'active', 0, 9, 'asc', (err, jobs) => {
+      if (err) {
+        reject(err);
+      }
+      else {
+        resolve(jobs);
+      }
+    });
+  });
+};
