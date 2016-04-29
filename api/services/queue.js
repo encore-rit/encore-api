@@ -9,7 +9,7 @@ export const publishTaker = (payload) => {
 
   return queue.create('taker', {
     title: 'Taker',
-    ...payload,
+    payload,
   })
   .priority('high')
   // @TODO for when client connections die?
@@ -20,7 +20,7 @@ export const publishTaker = (payload) => {
 };
 
 export const consumeTaker = () => {
-  console.log('Consuming...');
+  console.info('Consuming...');
 
   return queue.process('taker', (job, done) => {
     console.info(`Working on:`);
@@ -38,8 +38,8 @@ export const consumeTaker = () => {
   });
 };
 
-export const getActiveTakers = (jobType) => {
-  return new Promise((resolve, reject) => {
+export const getActiveTakers = (jobType) =>
+  new Promise((resolve, reject) => {
     kue.Job.rangeByType(jobType, 'active', 0, 9, 'asc', (err, jobs) => {
       if (err) {
         reject(err);
@@ -49,4 +49,3 @@ export const getActiveTakers = (jobType) => {
       }
     });
   });
-};
