@@ -29,7 +29,14 @@ const schema = new mongoose.Schema({
   editedPhoto: {
     type: String,
   },
-});
+
+  state: {
+    type: String,
+    enum: ['TAKING', 'READY', 'FINISHED', 'APPROVED'],
+    default: 'TAKING',
+  },
+},
+{ timestamps: true });
 
 export { schema };
 export const User = mongoose.model('User', schema);
