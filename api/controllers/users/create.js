@@ -8,19 +8,19 @@ import { User } from '../../models/user';
 import { publishTaker } from '../../services/queue';
 
 export default function create(req, res) {
-  const { username, artist } = req.body;
-  const required = { username, artist };
+  const { username, artistKey, artist } = req.body;
+  const required = { username, artistKey, artist };
 
   if (any(isNil)(values(required))) {
     return res.status(400).json(required);
   }
 
-  return new User({ username, artist })
+  return new User({ username, artistKey, artist })
   .save()
-  .then((user) => User.populate(user, 'artist'))
-  // @TODO hookup event system with dispatcher to fire a publish queue to RabbitMQ
-  .tap((user) => publishTaker({username: user.username, artist: user.artist.name}))
-  .tap(console.log)
+  .tap((user) => publishTaker({ username, artistKey, artist,
+                              userId: user.id }))
+  .tap((user) => console.log(user))
   .then((user) => res.status(201).json(user))
-  // .catch((err) => res.status(500).json(err));
+  // .catch((err) => res.status(500).json(err))
+  ;
 }

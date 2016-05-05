@@ -11,17 +11,24 @@ const schema = new mongoose.Schema({
   },
 
   artist: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: 'Artist',
+    type: String,
+    required: true,
+  },
+
+  artistKey: {
+    type: String,
     required: true,
   },
 
   photos: [
     {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Photo',
+      type: String,
     },
   ],
+
+  editedPhoto: {
+    type: String,
+  },
 });
 
 export { schema };

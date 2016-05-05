@@ -2,7 +2,9 @@ import getArtists from './controllers/artists/index';
 import createArtists from './controllers/artists/create';
 
 import createUser from './controllers/users/create';
+import getUser from './controllers/users/getUser';
 import addPhoto from './controllers/users/addPhoto';
+import addEditedPhoto from './controllers/users/addEditedPhoto';
 
 import publishEditor from './controllers/queue/publishEditor';
 
@@ -24,6 +26,16 @@ export default {
       path: '/users',
       method: 'POST',
       handler: createUser,
+    },
+    {
+      path: '/users/:id',
+      method: 'GET',
+      handler: getUser,
+    },
+    {
+      path: '/users/:id/editedPhoto',
+      method: 'POST',
+      handler: addEditedPhoto,
     },
     {
       path: '/users/:id/photos',
