@@ -1,7 +1,9 @@
 import kue from 'kue';
 import { isNil } from 'ramda';
 
-const queue = kue.createQueue();
+const queue = kue.createQueue({
+  redis: process.env.REDISCLOUD_URL || 'redis://127.0.0.1:6379',
+});
 
 export const publishTaker = (payload) => {
   console.info(`Publishing:`);
