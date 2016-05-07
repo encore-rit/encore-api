@@ -5,12 +5,16 @@ import enrouten from 'express-enrouten';
 import logger from 'morgan';
 import cors from 'cors';
 import socketIO from 'socket.io';
+import { isNil } from 'ramda';
 
+import { anyTaking, takeWaiting } from './services/taker';
+import { setState } from './services/state';
+import { addPhotos } from './services/photo';
 import { port } from '../config';
-import { consumeTaker } from './services/queue';
 import routes from './routes';
+import emitter from './emitter';
 
-const app = express()
+export const app = express()
   .use(logger('dev'))
   .use(compression())
   .use(cors())
@@ -19,24 +23,45 @@ const app = express()
   .disable('x-powered-by')
   .listen(port, (err) => {
     if (err) throw err;
-    console.info('Listening on port: ', port);
+    console.info(`Listening on port: ${port}`);
   });
 
-// const server = Server(app);
-const io = socketIO(app);
+export const io = socketIO(app);
 
+/**
+ * client -> TAKE_TAKER
+ *           SEND_TAKER <- server NEW_USER <- emitter
+ * client -> TOOK_TAKER
+ * client -> READY_TAKER
+ *           EDITORS <- server
+ */
 io.on('connection', (socket) => {
-  socket.on('CONSUME_TAKER', () => {
-    console.log('CONSUME_TAKER');
 
-    consumeTaker(({ job, done }) => {
-      console.log('emitted CONSUME_TAKER_JOB', job.data);
-      socket.emit('CONSUME_TAKER_JOB', job);
+  socket.on('TAKE_TAKER', () => {
+    console.log('from client received TAKE_TAKER');
 
-      socket.on('CONSUMED_TAKER', function () {
-        console.log('CONSUMED_TAKER');
-        done();
-      });
+    anyTaking()
+    .then(takeWaiting)
+    .then((taker) => {
+      if (isNil(taker)) {
+        emitter.once('NEW_USER', (user) => {
+          socket.emit('SEND_TAKER', user);
+        });
+      }
+      else {
+        socket.emit('SEND_TAKER', taker);
+      }
     });
   });
+
+  socket.on('TOOK_TAKER', (user) => {
+    console.log('TOOK_TAKER', user);
+    setState(user._id, 'TAKING');
+  });
+
+  // socket.on('READY_TAKER', (user) => {
+  //   console.log('READY_TAKER', user);
+  //   setState(user._id, 'READY'));
+  //   addPhotos(user._id, user.photos);
+  // });
 });

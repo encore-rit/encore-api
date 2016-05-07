@@ -4,8 +4,8 @@
 
 import { any, isNil, values } from 'ramda';
 
-import { User } from '../../models/user';
-import { publishTaker } from '../../services/queue';
+import { User } from '../models/user';
+import emitter from '../emitter';
 
 export default function create(req, res) {
   const { username, artistKey, artist } = req.body;
@@ -17,9 +17,7 @@ export default function create(req, res) {
 
   return new User({ username, artistKey, artist })
   .save()
-  .tap((user) => publishTaker({ username, artistKey, artist,
-                              userId: user.id }))
-  .tap((user) => console.log(user))
+  .tap((user) => emitter.emit('NEW_USER', user))
   .then((user) => res.status(201).json(user))
   // .catch((err) => res.status(500).json(err))
   ;

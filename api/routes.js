@@ -1,11 +1,14 @@
-import createUser from './controllers/users/create';
-import getUser from './controllers/users/getUser';
-import addPhoto from './controllers/users/addPhoto';
-import addEditedPhoto from './controllers/users/addEditedPhoto';
+import createUser from './controllers/create';
+import getUser from './controllers/getUser';
+import addPhoto from './controllers/addPhoto';
+import addEditedPhoto from './controllers/addEditedPhoto';
 
-import setState from './controllers/users/setState';
-import getPhotos from './controllers/users/getPhotos';
-import getEditors from './controllers/users/getEditors';
+import getUsersInState from './controllers/getUsersInState';
+import setState from './controllers/setState';
+import readyTaker from './controllers/readyTaker';
+import getPhotos from './controllers/getPhotos';
+import getFinishedPhotos from './controllers/getFinishedPhotos';
+import getEditors from './controllers/getEditors';
 
 export default {
   routes: [
@@ -13,6 +16,11 @@ export default {
       path: '/users',
       method: 'POST',
       handler: createUser,
+    },
+    {
+      path: '/users/:state',
+      method: 'GET',
+      handler: getUsersInState,
     },
     {
       path: '/users/:id',
@@ -30,6 +38,11 @@ export default {
       handler: addPhoto,
     },
     {
+      path: '/users/:id/ready',
+      method: 'POST',
+      handler: readyTaker,
+    },
+    {
       path: '/users/:id/setState/:state',
       method: 'POST',
       handler: setState,
@@ -40,9 +53,14 @@ export default {
       handler: getEditors,
     },
     {
-      path: '/photos/:number',
+      path: '/approved/photos/:number',
       method: 'GET',
       handler: getPhotos,
+    },
+    {
+      path: '/finished/photos/:number',
+      method: 'GET',
+      handler: getFinishedPhotos,
     },
   ],
 };

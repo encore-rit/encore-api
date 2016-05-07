@@ -1,4 +1,4 @@
-import { User } from '../../models/user';
+import { User } from '../models/user';
 
 export default function addPhoto(req, res) {
   return User.find({ _id: req.params.id })
