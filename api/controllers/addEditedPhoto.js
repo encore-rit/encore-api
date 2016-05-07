@@ -3,6 +3,9 @@ import imgur from 'imgur';
 imgur.setClientId('665e91941704f23');
 
 export default function addEditedPhoto(req, res) {
+  console.log(req.params);
+  console.log(req.body);
+
   return User.find({ _id: req.params.id })
   .then(([u]) => {
     u.memory = req.body.memory;

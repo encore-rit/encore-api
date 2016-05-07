@@ -16,7 +16,7 @@ export function setState(id, state) {
       console.log('sending ready event');
 
       return User.find({ state: 'READY' })
-        .sort({ updatedAt: -1 })
+        .sort({ createdAt: 1 })
         .then((editors) => {
           io.emit('EDITORS', editors);
         });
