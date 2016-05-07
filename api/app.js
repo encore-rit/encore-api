@@ -9,7 +9,6 @@ import { isNil } from 'ramda';
 
 import { anyTaking, takeWaiting } from './services/taker';
 import { setState } from './services/state';
-import { addPhotos } from './services/photo';
 import { port } from '../config';
 import routes from './routes';
 import emitter from './emitter';
@@ -18,7 +17,7 @@ export const app = express()
   .use(logger('dev'))
   .use(compression())
   .use(cors())
-  .use(bodyParser.json())
+  .use(bodyParser.json({ limit: '10mb' }))
   .use(enrouten(routes))
   .disable('x-powered-by')
   .listen(port, (err) => {
@@ -58,10 +57,4 @@ io.on('connection', (socket) => {
     console.log('TOOK_TAKER', user);
     setState(user._id, 'TAKING');
   });
-
-  // socket.on('READY_TAKER', (user) => {
-  //   console.log('READY_TAKER', user);
-  //   setState(user._id, 'READY'));
-  //   addPhotos(user._id, user.photos);
-  // });
 });
