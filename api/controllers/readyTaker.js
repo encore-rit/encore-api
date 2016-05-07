@@ -9,7 +9,8 @@ import { addPhotos } from '../services/photo';
  */
 export default function readyTaker(req, res) {
   return setState(req.params.id, 'READY')
-  .then((u) => addPhotos(req.params.id, req.body.photos).then(() => u))
-  .then((u) => res.status(200).json(u));
+  .then(() => addPhotos(req.params.id, req.body.photos))
+  .then((u) => res.status(200).json(u))
+  .catch((e) => res.status(500).json(e));
 }
 

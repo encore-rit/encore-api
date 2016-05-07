@@ -31,6 +31,7 @@
     "express": "^4.13.3",
     "express-enrouten": "^1.2.1",
     "express-json-status-codes": "^1.0.1",
+    "imgur": "^0.1.7",
     "ioredis": "^1.10.0",
     "jsonwebtoken": "^5.4.1",
     "kue": "^0.10.5",
