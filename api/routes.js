@@ -9,6 +9,7 @@ import readyTaker from './controllers/readyTaker';
 import getPhotos from './controllers/getPhotos';
 import getFinishedPhotos from './controllers/getFinishedPhotos';
 import getEditors from './controllers/getEditors';
+import getAllPhotos from './controllers/renderAllPhotos';
 
 export default {
   routes: [
@@ -16,6 +17,11 @@ export default {
       path: '/users',
       method: 'POST',
       handler: createUser,
+    },
+    {
+      path: '/photos/all',
+      method: 'GET',
+      handler: getAllPhotos,
     },
     {
       path: '/users/:state',

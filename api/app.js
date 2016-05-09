@@ -5,6 +5,7 @@ import enrouten from 'express-enrouten';
 import logger from 'morgan';
 import cors from 'cors';
 import socketIO from 'socket.io';
+import pug from 'pug';
 import { isNil } from 'ramda';
 
 import { anyTaking, takeWaiting } from './services/taker';
@@ -19,6 +20,7 @@ export const app = express()
   .use(cors())
   .use(bodyParser.json({ limit: '10mb' }))
   .use(enrouten(routes))
+  .set('view engine', 'pug')
   .disable('x-powered-by')
   .listen(port, (err) => {
     if (err) throw err;

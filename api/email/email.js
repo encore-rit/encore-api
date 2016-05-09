@@ -1,4 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+/**
+ * View requires:
+ * {
+ *   username: String,
+ *   message: String,
+ *   editedPhoto: link,
+ *   photo1: link,
+ *   photo2: link,
+ *   photo3: link,
+ * }
+ */
+
+export default `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,7 +24,7 @@
 
       <tr>
         <td align="center">
-          <img src="emailBanner.jpg" alt="You are rock" width="700" style="display: block;" />
+          <img src="http://encore-rit.github.io/encore-client/banner.jpg" alt="You are rock" width="700" style="display: block;" />
         </td>
       </tr>
       <tr>
@@ -21,14 +33,19 @@
           <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
               <td style="font-size:24px;">
-                <b>Hey there!</b>
+              <b>Hey there, <%= username %>!</b>
               </td>
             </tr>
 
             <tr>
               <td style="padding: 20px 0 30px 0;">
-                Thanks for getting crazy with us at Imagine RIT! Feel free to download your photo here:
-                <a href="">rockin' in your super cool photo</a>
+                Thanks for getting crazy with us at Imagine RIT! Feel free to download your edited photo here: <a href="<%= editedPhoto %>">rockin' in your super cool photo</a>.
+
+                <ul>
+                  <li><a href="<%= photo1 %>">Photo 1</a></li>
+                  <li><a href="<%= photo2 %>">Photo 2</a></li>
+                  <li><a href="<%= photo3 %>">Photo 3</a></li>
+                </ul>
               </td>
             </tr>
 
@@ -43,7 +60,7 @@
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td style="font-size:16px">
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                      <%= message %>
                     </td>
                   </tr>
                 </table>
@@ -69,4 +86,4 @@
     </table>
 
   </body>
-</html>
+</html>`
