@@ -30,10 +30,14 @@ const schema = new mongoose.Schema({
     type: String,
   },
 
+  memory: {
+    type: String,
+  },
+
   state: {
     type: String,
-    enum: ['TAKING', 'READY', 'FINISHED', 'APPROVED'],
-    default: 'TAKING',
+    enum: ['WAITING', 'TAKING', 'READY', 'EDITING', 'FINISHED', 'APPROVED'],
+    default: 'WAITING',
   },
 },
 { timestamps: true });
